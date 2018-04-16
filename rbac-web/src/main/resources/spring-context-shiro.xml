@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+<!--    &lt;!&ndash;spring-context.xml中定义了，定义两次？&ndash;&gt;
+    <context:component-scan base-package="com.arnold.rbac.*">&lt;!&ndash; base-package 如果多个，用“,”分隔 &ndash;&gt;
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>-->
+
+    <!-- Shiro权限过滤过滤器定义 -->
+    <bean name="shiroFilterChainDefinitions" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                /favicon.ico=anon
+                /assets/**=anon
+                /test/**=anon
+                <!--/login = authc-->
+                /** = anon
+            </value>
+        </constructor-arg>
+    </bean>
+
+    <!-- 安全认证过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" /><!--
+		<property name="loginUrl" value="${cas.server.url}?service=${cas.project.url}${adminPath}/cas" /> -->
+        <property name="loginUrl" value="/login" />
+        <property name="successUrl" value="" />
+        <property name="filters">
+            <map>
+                <!--<entry key="cas" value-ref="casFilter"/>-->
+                <entry key="authc" value-ref="formAuthenticationFilter"/>
+            </map>
+        </property>
+        <property name="filterChainDefinitions">
+            <ref bean="shiroFilterChainDefinitions"/>
+        </property>
+    </bean>
+
+
+    <!-- 定义Shiro安全管理配置 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="systemAuthorizingRealm" />
+        <!--<property name="sessionManager" ref="sessionManager" />-->
+        <property name="cacheManager" ref="shiroCacheManager" />
+    </bean>
+
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+
+
+</beans>
