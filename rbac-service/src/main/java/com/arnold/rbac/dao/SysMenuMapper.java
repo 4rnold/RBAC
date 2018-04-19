@@ -58,4 +58,9 @@ public interface SysMenuMapper {
 
     List<SysMenu> selectAllMenus();
 
+    List<SysMenu> getMenusBycondition(SysMenu sysMenu);
+
+    //Integer updatebatch(List<SysMenu> sysMenus);
+	Integer deleteBatch(List<Integer> menuIds);
+
 }

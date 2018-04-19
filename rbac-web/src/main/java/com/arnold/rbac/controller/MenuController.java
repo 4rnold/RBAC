@@ -142,6 +142,42 @@ public class MenuController {
 		return Result.newSuccess();
 	}
 
+	@RequestMapping("editElement")
+	@ResponseBody
+	public Result editElement(@Valid ElementVo elementVo, BindingResult bindingResult) throws BindException {
+		if (bindingResult.hasErrors())
+			throw new BindException(bindingResult);
+		SysElement sysElement = elementVo.ConvertToSysElement();
+		elementService.saveElement(sysElement);
+		return Result.newSuccess();
+	}
+
+	@RequestMapping("deleteMenu")
+	@ResponseBody
+	public Result deletMenu(Integer id){
+		if (id == null) {
+			throw new NumberFormatException("无效id");
+		}
+		menuService.deleteMenu(id);
+
+		return Result.newSuccess();
+	}
+
+	@RequestMapping("deleteElement")
+	@ResponseBody
+	public Result deletElement(String id){
+		if (id == null) {
+			throw new NumberFormatException("无效id");
+		}
+		if (id.startsWith(ElementVo.ID_PREFIX)) {
+			//去掉Element-id前缀
+			id = id.replaceAll(ElementVo.ID_PREFIX,"");
+		}
+		elementService.deleteElement(Integer.parseInt(id));
+		return Result.newSuccess();
+	}
+
+
 	/*@RequestMapping("addMenu")
 	@ResponseBody
 	public Result addMenu(@Valid MenuVo menuVo,BindingResult bindingResult) {

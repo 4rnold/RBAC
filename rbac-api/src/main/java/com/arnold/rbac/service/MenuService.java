@@ -12,4 +12,10 @@ public interface MenuService {
 
 	void saveMenu(SysMenu sysMenu);
 
+	void deleteMenu(int id);
+
+	List<SysMenu> getChildrenMenus(int id);
+
+	void deleteBatch(List<Integer> menuIds);
+
 }

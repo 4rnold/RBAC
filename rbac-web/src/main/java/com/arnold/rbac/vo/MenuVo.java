@@ -24,9 +24,9 @@ public class MenuVo {
 	@NotEmpty
 	private String url;
 
-	private Integer permission_id;
-	private String permission_str;
-	private String permission_name;
+	private Integer permissionId;
+	private String permissionStr;
+	private String permissionName;
 
 
 	private List<MenuVo> subMenus = new ArrayList<>();
@@ -72,6 +72,30 @@ public class MenuVo {
 		this.pId = pId;
 	}
 
+	public Integer getPermissionId() {
+		return permissionId;
+	}
+
+	public void setPermissionId(Integer permissionId) {
+		this.permissionId = permissionId;
+	}
+
+	public String getPermissionStr() {
+		return permissionStr;
+	}
+
+	public void setPermissionStr(String permissionStr) {
+		this.permissionStr = permissionStr;
+	}
+
+	public String getPermissionName() {
+		return permissionName;
+	}
+
+	public void setPermissionName(String permissionName) {
+		this.permissionName = permissionName;
+	}
+
 	public MenuVo() {
 	}
 
@@ -83,9 +107,9 @@ public class MenuVo {
 
 
 		if (sysMenu.getPermission() != null) {
-			this.permission_str = sysMenu.getPermission().getPermissionStr();
-			this.permission_id = sysMenu.getPermission().getId();
-			this.permission_name = sysMenu.getPermission().getPermissionName();
+			this.permissionStr = sysMenu.getPermission().getPermissionStr();
+			this.permissionId = sysMenu.getPermission().getId();
+			this.permissionName = sysMenu.getPermission().getPermissionName();
 		}
 	}
 
@@ -97,12 +121,12 @@ public class MenuVo {
 		sysMenu.setHref(this.url);
 		sysMenu.setName(this.name);
 		sysMenu.setIsLeaf(false);
-		sysMenu.setPermissionId(this.permission_id);
+		sysMenu.setPermissionId(this.permissionId);
 		SysPermission sysPermission = new SysPermission();
-		sysPermission.setPermissionName(this.permission_name);
-		sysPermission.setPermissionStr(this.permission_str);
-		sysPermission.setId(this.permission_id);
-
+		sysPermission.setPermissionName(this.name);
+		sysPermission.setPermissionStr(this.permissionStr);
+		sysPermission.setId(this.permissionId);
+		sysMenu.setPermission(sysPermission);
 		return sysMenu;
 	}
 }

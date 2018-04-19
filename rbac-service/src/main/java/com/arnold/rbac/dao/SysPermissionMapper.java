@@ -3,6 +3,8 @@ package com.arnold.rbac.dao;
 import com.arnold.rbac.model.SysPermission;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SysPermissionMapper {
     /**
@@ -52,4 +54,7 @@ public interface SysPermissionMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(SysPermission record);
+
+	Integer deleteBatch(List<Integer> permissionIds);
+
 }

@@ -56,4 +56,10 @@ public interface SysElementMapper {
     int updateByPrimaryKey(SysElement record);
 
     List<SysElement> getElementList();
+
+	Integer deleteBatch(List<Integer> elementIds);
+
+	List<SysElement> getElementsByMenuIds(List<Integer> menuIds);
+
+
 }

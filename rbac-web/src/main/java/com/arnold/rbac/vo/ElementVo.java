@@ -1,6 +1,7 @@
 package com.arnold.rbac.vo;
 
 import com.arnold.rbac.model.SysElement;
+import com.arnold.rbac.model.SysPermission;
 
 import java.io.Serializable;
 
@@ -71,5 +72,19 @@ public class ElementVo implements Serializable{
 
 	public void setPermission_name(String permission_name) {
 		this.permission_name = permission_name;
+	}
+
+	public SysElement ConvertToSysElement() {
+		SysElement sysElement = new SysElement();
+		sysElement.setName(this.name);
+		sysElement.setId(this.id);
+		sysElement.setMenuId(this.menu_id);
+		sysElement.setPermissionId(this.permission_id);
+		SysPermission sysPermission = new SysPermission();
+		sysPermission.setPermissionStr(this.permission_str);
+		sysPermission.setPermissionName(this.name);
+		sysPermission.setId(this.permission_id);
+		sysElement.setPermission(sysPermission);
+		return sysElement;
 	}
 }

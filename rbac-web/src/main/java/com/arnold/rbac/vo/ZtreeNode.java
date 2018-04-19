@@ -3,6 +3,7 @@ package com.arnold.rbac.vo;
 
 import com.arnold.rbac.model.SysElement;
 import com.arnold.rbac.model.SysMenu;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ZtreeNode {
 	private String id;
@@ -11,6 +12,7 @@ public class ZtreeNode {
 	private String permission;
 	private String url;
 	private boolean isMenu;
+	private boolean isParent;
 
 	public String getId() {
 		return id;
@@ -52,12 +54,22 @@ public class ZtreeNode {
 		this.url = url;
 	}
 
+	@JsonProperty(value = "isMenu")
 	public boolean isMenu() {
 		return isMenu;
 	}
 
 	public void setMenu(boolean menu) {
 		isMenu = menu;
+	}
+
+	@JsonProperty(value = "isParent")
+	public boolean isParent() {
+		return isParent;
+	}
+
+	public void setParent(boolean parent) {
+		isParent = parent;
 	}
 
 	public ZtreeNode() {
@@ -72,6 +84,7 @@ public class ZtreeNode {
 			this.name = sysMenu.getName();
 			this.url = sysMenu.getHref();
 			this.isMenu = true;
+			this.isParent = true;
 		}
 
 	}
@@ -81,6 +94,7 @@ public class ZtreeNode {
 		this.pId = String.valueOf(sysElement.getMenuId());
 		this.name = sysElement.getName();
 		this.isMenu = false;
+		this.isParent = false;
 	}
 
 
